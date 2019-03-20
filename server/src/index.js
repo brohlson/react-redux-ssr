@@ -13,7 +13,7 @@ app.get("/", (req, res) => {
     <html>
       <head></head>
       <body>
-        <div>${content}</div>
+        <div id="app__root">${content}</div>
         <script src="bundle.js"></script>
       </body>
     </html>
