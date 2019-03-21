@@ -1,19 +1,23 @@
 const path = require("path");
 const merge = require("webpack-merge");
 const baseConfig = require("./webpack.base.js");
+const webpackNodeExternals = require("webpack-node-externals");
 
 const config = {
-  // Inform webpack that we're building node-safe bundle
+  // Building a node-safe bundle
   target: "node",
 
   // Inform webpack of root file
   entry: "./src/index.js",
 
-  // Inform webpack where to output generated code
+  // Tell webpack where to output generated code
   output: {
     filename: "bundle.js",
     path: path.resolve(__dirname, "build")
-  }
+  },
+
+  // Do not bundle any external node_module libraries in server side bundle
+  externals: [webpackNodeExternals()]
 };
 
 module.exports = merge(baseConfig, config);

@@ -1,24 +1,19 @@
+import "babel-polyfill";
 import express from "express";
-import React from "react";
-import { renderToString } from "react-dom/server";
-import Home from "./client/components/Home";
+import renderer from "./helpers/renderer";
+import createStore from "./helpers/createStore";
 
 const app = express();
 
 app.use(express.static("public"));
 
-app.get("/", (req, res) => {
-  const content = renderToString(<Home />);
-  const html = `
-    <html>
-      <head></head>
-      <body>
-        <div id="app__root">${content}</div>
-        <script src="bundle.js"></script>
-      </body>
-    </html>
-  `;
-  res.send(html);
+app.get("*", (req, res) => {
+  const store = createStore();
+
+  // logic for loading
+  // data into store
+
+  res.send(renderer(req, store));
 });
 
 app.listen(3000, () => {
