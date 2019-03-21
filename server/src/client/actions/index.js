@@ -1,10 +1,21 @@
 import axios from "axios";
+import * as ACTION from "../actionTypes.js";
 
-export const FETCH_USERS = "fetch_users";
-export const fetchUsers = () => async dispatch => {
-  const res = await axios.get("http://react-ssr-api.herokuapp.com/users");
+export const usersFetchAll = () => async dispatch => {
   dispatch({
-    type: FETCH_USERS,
-    payload: res
+    type: ACTION.USERS_FETCH_START
   });
+
+  try {
+    const res = await axios.get("http://react-ssr-api.herokuapp.com/users");
+    dispatch({
+      type: ACTION.USERS_FETCH_ALL,
+      payload: res
+    });
+  } catch (error) {
+    dispatch({
+      type: ACTION.USERS_FETCH_ERROR,
+      payload: error
+    });
+  }
 };

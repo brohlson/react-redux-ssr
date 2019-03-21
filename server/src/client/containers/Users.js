@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { fetchUsers } from "../actions";
+import { usersFetchAll } from "../actions";
 
 class Users extends Component {
   componentDidMount() {
-    this.props.fetchUsers();
+    this.props.usersFetchAll();
   }
 
   renderUsers() {
@@ -14,20 +14,27 @@ class Users extends Component {
   }
 
   render() {
+    let { fetching } = this.props;
     return (
       <div>
         <h3>User List</h3>
-        <ul>{this.renderUsers()}</ul>
+        {fetching && <p>Loading...</p>}
+        {!fetching && <ul>{this.renderUsers()}</ul>}
       </div>
     );
   }
 }
 
 const mapStateToProps = state => {
-  return { users: state.users };
+  return { users: state.users.usersAll, fetching: state.users.fetching };
 };
 
+function getInitialProps(store) {
+  return store.dispatch(usersFetchAll());
+}
+
+export { getInitialProps };
 export default connect(
   mapStateToProps,
-  { fetchUsers }
+  { usersFetchAll }
 )(Users);
