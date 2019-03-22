@@ -1,12 +1,15 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const Home = () => {
   return (
     <div>
       <div>I'm the home container</div>
-      <button onClick={() => console.log("Hi!")}>Press me!</button>
+      <Link to="/users">Users</Link>
     </div>
   );
 };
 
-export default Home;
+export default {
+  component: Home
+};

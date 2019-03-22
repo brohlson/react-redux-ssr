@@ -10,11 +10,16 @@ import { Provider } from "react-redux";
 import { renderRoutes } from "react-router-config";
 import Routes from "./Routes";
 import reducers from "./reducers";
+import axios from "axios";
+
+const axiosInstance = axios.create({
+  baseURL: "/api"
+});
 
 const store = createStore(
   reducers,
-  {},
-  composeWithDevTools(applyMiddleware(thunk))
+  window.INITIAL_STATE,
+  composeWithDevTools(applyMiddleware(thunk.withExtraArgument(axiosInstance)))
 );
 
 // Hydrate the server-rendered html template with client side React code

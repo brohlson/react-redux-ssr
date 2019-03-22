@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { usersFetchAll } from "../actions";
+import { Link } from "react-router-dom";
 
 class Users extends Component {
   componentDidMount() {
@@ -20,6 +21,7 @@ class Users extends Component {
         <h3>User List</h3>
         {fetching && <p>Loading...</p>}
         {!fetching && <ul>{this.renderUsers()}</ul>}
+        <Link to="/">Back Home</Link>
       </div>
     );
   }
@@ -33,8 +35,10 @@ function getInitialProps(store) {
   return store.dispatch(usersFetchAll());
 }
 
-export { getInitialProps };
-export default connect(
-  mapStateToProps,
-  { usersFetchAll }
-)(Users);
+export default {
+  getInitialProps,
+  component: connect(
+    mapStateToProps,
+    { usersFetchAll }
+  )(Users)
+};

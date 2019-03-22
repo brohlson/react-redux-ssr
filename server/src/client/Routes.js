@@ -1,16 +1,15 @@
 import React from "react";
 import Home from "./containers/Home";
-import Users, { getInitialProps } from "./containers/Users";
+import Users from "./containers/Users";
 
 export default [
   {
+    ...Home,
     path: "/",
-    component: Home,
     exact: true
   },
   {
-    getInitialProps,
-    path: "/users",
-    component: Users
+    ...Users,
+    path: "/users"
   }
 ];
