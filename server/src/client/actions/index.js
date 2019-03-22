@@ -18,3 +18,11 @@ export const usersFetchAll = () => async (dispatch, getState, api) => {
     });
   }
 };
+
+export const authFetchCurrentUser = () => async (dispatch, getState, api) => {
+  const res = await api.get("/current_user");
+  dispatch({
+    type: ACTION.AUTH_FETCH_CURRENT_USER,
+    payload: res
+  });
+};
