@@ -3,18 +3,27 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 
 const Header = ({ auth }) => {
+  const authButton = auth ? (
+    <a href="/api/logout">Logout</a>
+  ) : (
+    <a href="/api/auth/google">Login</a>
+  );
   return (
-    <nav className="header__root">
-      <Link to="/">React-Redux SSR</Link>
-      <ul>
-        <li>
-          <Link to="/users">Users</Link>
-        </li>
-        <li>
-          <Link to="/admins">Admins</Link>
-        </li>
-        <li>{auth ? `Log Out` : `Log In`}</li>
-      </ul>
+    <nav>
+      <div className="nav-wrapper">
+        <ul className="right">
+          <li>
+            <Link to="/">Home</Link>
+          </li>
+          <li>
+            <Link to="/users">Users</Link>
+          </li>
+          <li>
+            <Link to="/admins">Admins</Link>
+          </li>
+          <li>{authButton}</li>
+        </ul>
+      </div>
     </nav>
   );
 };

@@ -19,6 +19,25 @@ export const usersFetchAll = () => async (dispatch, getState, api) => {
   }
 };
 
+export const adminsFetchAll = () => async (dispatch, getState, api) => {
+  dispatch({
+    type: ACTION.ADMINS_FETCH_START
+  });
+
+  try {
+    const res = await api.get("/admins");
+    dispatch({
+      type: ACTION.ADMINS_FETCH_ALL,
+      payload: res
+    });
+  } catch (error) {
+    dispatch({
+      type: ACTION.ADMINS_FETCH_ERROR,
+      payload: error
+    });
+  }
+};
+
 export const authFetchCurrentUser = () => async (dispatch, getState, api) => {
   const res = await api.get("/current_user");
   dispatch({

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { usersFetchAll } from "../actions";
-import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet";
 
 class Users extends Component {
   componentDidMount() {
@@ -17,11 +17,14 @@ class Users extends Component {
   render() {
     let { fetching } = this.props;
     return (
-      <div>
+      <div className="center-align" style={{ padding: "1rem" }}>
+        <Helmet>
+          <title>Users</title>
+        </Helmet>
         <h3>User List</h3>
+        <p>This thing grabs a public api route.</p>
         {fetching && <p>Loading...</p>}
         {!fetching && <ul>{this.renderUsers()}</ul>}
-        <Link to="/">Back Home</Link>
       </div>
     );
   }
